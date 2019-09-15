@@ -1,5 +1,5 @@
 FROM debian:8
 
 RUN apt-get update && \
-    apt-get install gcc g++ meson ninja git && \
+    apt-get install -y gcc g++ meson git && \
     rm -rf /var/lib/apt/lists/*
