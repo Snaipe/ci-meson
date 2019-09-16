@@ -1,0 +1,4 @@
+#!/bin/bash
+for img in $(docker images --format '{{ .Repository }}:{{ .Tag }}' | grep "$DOCKER_REPO"); do
+    docker push $img
+done

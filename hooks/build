@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+changed="$(git diff-tree --no-commit-id --name-only -r "$SOURCE_COMMIT" | cut -d/ -f1)"
+dockerdirs="$(find $changed -maxdepth 2 -type f -name 'build' | cut -d/ -f1)"
+
+for dir in $dockerdirs; do
+    ( cd $dir; . $dir/build; )
+done

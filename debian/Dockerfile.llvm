@@ -1,0 +1,12 @@
+ARG OS_VERSION=10
+
+FROM debian:${OS_VERSION}-slim
+
+ARG MESON_VERSION=0.51.2
+
+RUN apt-get update && \
+    apt-get install -y clang python3 python3-pip ninja-build git && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install meson==${MESON_VERSION}
+
