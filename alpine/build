@@ -10,14 +10,25 @@ for arch in ${ARCHES[@]}; do
         --build-arg OS_VERSION=$OS_VERSION
         --build-arg OS_ARCH=$arch
     )
-    IMAGE=$DOCKER_REPO:$DOCKER_TAG-gcc-$OS-$arch
+    IMAGE=$DOCKER_REPO:$DOCKER_TAG-gcc-alpine-$OS_VERSION-$arch
 
     docker build ${BUILD_ARGS[@]} -t $IMAGE -f Dockerfile.gcc .
-    docker tag $IMAGE $DOCKER_REPO:gcc-$OS-$arch
-    docker tag $IMAGE $DOCKER_REPO:$OS-$arch
+    docker tag $IMAGE $DOCKER_REPO:gcc-alpine-$OS_VERSION-$arch
+    docker tag $IMAGE $DOCKER_REPO:gcc-alpine-$arch
+    docker tag $IMAGE $DOCKER_REPO:alpine-$OS_VERSION-$arch
+    docker tag $IMAGE $DOCKER_REPO:alpine-$arch
 
-    IMAGE=$DOCKER_REPO:$DOCKER_TAG-llvm-$OS-$arch
+    IMAGE=$DOCKER_REPO:$DOCKER_TAG-llvm-alpine-$OS_VERSION-$arch
 
     docker build ${BUILD_ARGS[@]} -t $IMAGE -f Dockerfile.llvm .
-    docker tag $IMAGE $DOCKER_REPO:llvm-$OS-$arch
+    docker tag $IMAGE $DOCKER_REPO:llvm-alpine-$OS_VERSION-$arch
 done
+
+IMAGE=$DOCKER_REPO:$DOCKER_TAG-gcc-alpine-$OS_VERSION-x86_64
+docker tag $IMAGE $DOCKER_REPO:gcc-alpine-$OS_VERSION
+docker tag $IMAGE $DOCKER_REPO:gcc-alpine
+docker tag $IMAGE $DOCKER_REPO:alpine
+
+IMAGE=$DOCKER_REPO:$DOCKER_TAG-llvm-alpine-$OS_VERSION-x86_64
+docker tag $IMAGE $DOCKER_REPO:llvm-alpine-$OS_VERSION
+docker tag $IMAGE $DOCKER_REPO:llvm-alpine
