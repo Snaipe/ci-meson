@@ -5,5 +5,5 @@ changed=($(git diff-tree --no-commit-id --name-only -r "$SOURCE_COMMIT" | cut -d
 dockerdirs=($(find ${changed[@]} -maxdepth 2 -type f -name 'build' | cut -d/ -f1 | sort -u))
 
 for dir in ${dockerdirs[@]}; do
-    ( cd $dir; . $dir/build; )
+    ( cd $dir; . build; )
 done
