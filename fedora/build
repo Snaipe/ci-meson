@@ -1,0 +1,21 @@
+#!/bin/bash
+
+OS_VERSION=31
+OS=fedora-$OS_VERSION
+
+BUILD_ARGS=(
+    --build-arg MESON_VERSION=$DOCKER_TAG
+    --build-arg OS_VERSION=$OS_VERSION
+)
+IMAGE=$DOCKER_REPO:$DOCKER_TAG-gcc-$OS
+
+docker build ${BUILD_ARGS[@]} -t $IMAGE -f Dockerfile.gcc .
+docker tag $IMAGE $DOCKER_REPO:gcc-$OS
+docker tag $IMAGE $DOCKER_REPO:$OS
+docker tag $IMAGE $DOCKER_REPO:gcc
+
+IMAGE=$DOCKER_REPO:$DOCKER_TAG-llvm-$OS
+
+docker build ${BUILD_ARGS[@]} -t $IMAGE -f Dockerfile.llvm .
+docker tag $IMAGE $DOCKER_REPO:llvm-$OS
+docker tag $IMAGE $DOCKER_REPO:llvm

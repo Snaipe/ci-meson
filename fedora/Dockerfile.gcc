@@ -1,0 +1,10 @@
+ARG OS_VERSION=31
+
+FROM fedora:${OS_VERSION}
+
+ARG MESON_VERSION=0.51.2
+
+RUN dnf install -y gcc gcc-c++ python3 python3-pip ninja-build git make && \
+    dnf clean all
+
+RUN pip3 install meson==${MESON_VERSION}
